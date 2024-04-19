@@ -1,5 +1,5 @@
 plugins {
-    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.hiltAndroid)
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
@@ -7,30 +7,14 @@ plugins {
 }
 
 android {
-    namespace = "xyz.androidrey.multimoduletemplate"
-
-    defaultConfig {
-        applicationId = "xyz.androidrey.multimoduletemplate"
-        versionCode = 1
-        versionName = "1.0"
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
+    namespace = "xyz.androidrey.multimoduletemplate.main"
     buildFeatures {
         compose = true
     }
 }
 
 dependencies {
-    implementation(projects.features.main)
+
     implementation(projects.theme)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
