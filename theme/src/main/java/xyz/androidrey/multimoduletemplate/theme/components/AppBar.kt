@@ -29,6 +29,6 @@ fun AppBar(
                     Icon(navIcon, contentDescription = "Nav Icon")
                 }
             }
-        },
+        }
     )
 }

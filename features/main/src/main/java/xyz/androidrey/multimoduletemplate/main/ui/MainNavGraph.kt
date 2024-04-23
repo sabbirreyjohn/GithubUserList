@@ -1,5 +1,6 @@
-package xyz.androidrey.multimoduletemplate.main
+package xyz.androidrey.multimoduletemplate.main.ui
 
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -19,7 +20,7 @@ fun NavGraphBuilder.mainNavGraph(navController: NavController) {
 
     navigation(startDestination = MainScreen.Home.route, route = mainRoute){
         composable(MainScreen.Home.route){
-            HomeScreen(viewModel())
+            HomeScreen(hiltViewModel())
         }
         composable(MainScreen.Profile.route){
 

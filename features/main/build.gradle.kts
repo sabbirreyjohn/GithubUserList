@@ -10,6 +10,7 @@ android {
     namespace = "xyz.androidrey.multimoduletemplate.main"
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
@@ -32,6 +33,11 @@ dependencies {
     kapt(libs.hilt.android.kapt)
     implementation(libs.hilt.compose)
     kapt(libs.hilt.compiler.kapt)
+
+    implementation(libs.moshi.kotlin)
+    implementation(libs.retrofit.moshi.converter)
+
+    implementation(libs.coil)
 
 
     testImplementation(libs.junit)
