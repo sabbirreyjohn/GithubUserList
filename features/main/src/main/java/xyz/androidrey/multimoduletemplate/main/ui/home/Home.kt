@@ -55,6 +55,9 @@ fun Home(users: List<User>, clickedUserName: (String) -> Unit) {
                 clickedUserName(it)
             }
         }
+        item {
+
+        }
     }
 }
 

@@ -35,6 +35,8 @@ dependencies {
     implementation(libs.hilt.compose)
     kapt(libs.hilt.compiler.kapt)
 
+    implementation(libs.paging.runtime)
+    implementation(libs.paging.compose)
 
     implementation(libs.moshi.kotlin)
     implementation(libs.retrofit.moshi.converter)

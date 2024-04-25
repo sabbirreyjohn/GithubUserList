@@ -24,6 +24,8 @@ gradle-secrets = "2.0.1"
 kotlinCompilerExtensionVersion = "1.5.1"
 kotlinSerialization = "1.9.0"
 lifecycle-viewmodel = "1.0.0-alpha03"
+paging= "3.2.1"
+paging-compose = "3.3.0-beta01"
 
 
 ktor = "2.3.5"
@@ -52,6 +54,9 @@ androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-man
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "lifecycleRuntimeKtx" }
+
+paging-runtime ={group = "androidx.paging", name ="paging-runtime", version.ref = "paging"}
+paging-compose = {group ="androidx.paging", name="paging-compose", version.ref ="paging-compose"}
 
 
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
