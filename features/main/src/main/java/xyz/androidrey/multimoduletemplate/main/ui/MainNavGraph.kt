@@ -4,9 +4,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavType
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import xyz.androidrey.multimoduletemplate.main.ui.home.HomeScreen
+import xyz.androidrey.multimoduletemplate.main.ui.profile.ProfileScreen
 
 
 const val mainRoute = "main"
@@ -17,13 +20,17 @@ sealed class MainScreen(val route: String) {
 }
 
 fun NavGraphBuilder.mainNavGraph(navController: NavController) {
-
-    navigation(startDestination = MainScreen.Home.route, route = mainRoute){
-        composable(MainScreen.Home.route){
-            HomeScreen(hiltViewModel())
+    navigation(startDestination = MainScreen.Home.route, route = mainRoute) {
+        composable(MainScreen.Home.route) {
+            HomeScreen(hiltViewModel(), navController)
         }
-        composable(MainScreen.Profile.route){
-
+        composable("${MainScreen.Profile.route}?name={name}", arguments = listOf(
+            navArgument("name") {
+                type = NavType.StringType
+                defaultValue = "Sabbir"
+            }
+        )) {
+            ProfileScreen(it.arguments?.getString("name"), hiltViewModel())
         }
     }
 }

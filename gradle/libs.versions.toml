@@ -22,6 +22,8 @@ dataStore = "1.0.0"
 spotless = "6.19.0"
 gradle-secrets = "2.0.1"
 kotlinCompilerExtensionVersion = "1.5.1"
+kotlinSerialization = "1.9.0"
+lifecycle-viewmodel = "1.0.0-alpha03"
 
 
 ktor = "2.3.5"
@@ -30,6 +32,7 @@ ktorClientContentNegotiation = "2.3.5"
 ktorClientLogging = "2.3.5"
 appcompat = "1.6.1"
 material = "1.11.0"
+jetbrainsKotlinJvm = "1.9.0"
 
 
 
@@ -55,6 +58,7 @@ hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref
 hilt-android-kapt = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
 hilt-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hilt-androidx" }
 hilt-compiler-kapt = { group = "androidx.hilt", name = "hilt-compiler", version.ref = "hilt-androidx" }
+hilt-lifecycle-viewmodel = {group = "androidx.hilt", name ="hilt-lifecycle-viewmodel", version.ref = "lifecycle-viewmodel"}
 
 compose-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "compose-navigation" }
 compose-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "compose-viewmodel" }
@@ -94,4 +98,6 @@ hiltAndroid = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 gradle-secrets = {id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref ="gradle-secrets"}
 android-library = { id = "com.android.library", version.ref = "agp" }
 spotless = {id = "com.diffplug.spotless", version.ref ="spotless"}
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinSerialization" }
+jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
 

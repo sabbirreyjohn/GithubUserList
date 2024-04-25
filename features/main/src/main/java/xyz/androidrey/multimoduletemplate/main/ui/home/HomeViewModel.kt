@@ -8,30 +8,27 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import xyz.androidrey.multimoduletemplate.main.domain.repository.DataRepository
-import xyz.androidrey.multimoduletemplate.main.domain.util.Status
+import xyz.androidrey.multimoduletemplate.main.data.repository.DataRepository
+import xyz.androidrey.multimoduletemplate.network.NetworkResult
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(@ApplicationContext private val context: Context, private val repo: DataRepository) : ViewModel() {
+class HomeViewModel @Inject constructor(
+    @ApplicationContext private val context: Context,
+    private val repo: DataRepository
+) : ViewModel() {
     private val _uiState = MutableStateFlow<HomeUiState>(HomeUiState.ProfileListLoading)
     val uiState = _uiState.asStateFlow()
 
     init {
         viewModelScope.launch {
-            when(val status = repo.getUsersFromServer(0)){
-                is Status.Error -> _uiState.value = HomeUiState.ProfileListLoadingFailed(status.message!!)
-                is Status.Loading -> _uiState.value = HomeUiState.ProfileListLoading
-                is Status.Success -> _uiState.value = HomeUiState.ProfileListLoaded(status.data!!)
+            when (val status = repo.getUsers(0)) {
+                is NetworkResult.Error -> _uiState.value =
+                    HomeUiState.ProfileListLoadingFailed(status.exception.message!!)
 
+                is NetworkResult.Success -> _uiState.value =
+                    HomeUiState.ProfileListLoaded(status.result)
             }
-        }
-    }
-
-    fun onEvent(uiEvent: HomeUiEvent) {
-        when (uiEvent) {
-
-            HomeUiEvent.ProfileClicked -> {}
         }
     }
 }

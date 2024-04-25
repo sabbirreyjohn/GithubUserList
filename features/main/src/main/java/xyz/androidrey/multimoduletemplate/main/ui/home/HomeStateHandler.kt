@@ -14,7 +14,7 @@ fun  HomeStateHandler(
 ) {
     when (state) {
         is HomeUiState.ProfileListLoaded -> content(state.users)
-        HomeUiState.ProfileListLoading -> loading()
+        is HomeUiState.ProfileListLoading -> loading()
         is HomeUiState.ProfileListLoadingFailed -> error(state.message)
     }
 }

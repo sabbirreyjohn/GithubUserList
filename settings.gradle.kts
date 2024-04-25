@@ -19,8 +19,9 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Multi-Module-Template"
+rootProject.name = "Github-User-List"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 include(":app")
 include(":theme")
 include(":features:main")
+include(":network")

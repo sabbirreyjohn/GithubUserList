@@ -1,7 +1,9 @@
 package xyz.androidrey.multimoduletemplate.main.domain.entity
 
-import java.io.Serializable
+import kotlinx.serialization.Serializable
 
+
+@Serializable
 data class Profile(
     val avatar_url: String? = null,
     val bio: String? = null,
@@ -35,4 +37,4 @@ data class Profile(
     val type: String? = null,
     val updated_at: String? = null,
     val url: String? = null
-) : Serializable
+)

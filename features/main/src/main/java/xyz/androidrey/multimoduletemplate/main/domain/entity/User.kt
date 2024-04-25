@@ -1,11 +1,12 @@
 package xyz.androidrey.multimoduletemplate.main.domain.entity
 
-import com.squareup.moshi.Json
-import java.io.Serializable
+import kotlinx.serialization.Serializable
 
+
+@Serializable
 data class User(
-    @Json(name = "id") val userId: String,
-    @Json(name = "login") val userName: String,
-    @Json(name = "node_id") val nodeId: String,
-    @Json(name = "avatar_url") val userAvatar: String
-) : Serializable
+    val id: String,
+    val login: String,
+    val node_id: String,
+    val avatar_url: String
+)

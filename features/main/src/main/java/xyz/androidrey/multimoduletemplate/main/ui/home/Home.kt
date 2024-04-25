@@ -21,59 +21,63 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavArgumentBuilder
+import androidx.navigation.NavController
+import androidx.navigation.Navigator
+import androidx.navigation.navArgument
 import coil.compose.AsyncImage
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberImagePainter
 import com.example.compose.AppTheme
 import xyz.androidrey.multimoduletemplate.main.domain.entity.User
+import xyz.androidrey.multimoduletemplate.main.ui.MainScreen
 import xyz.androidrey.multimoduletemplate.theme.components.AppBar
 import xyz.androidrey.multimoduletemplate.theme.components.ThePreview
 
 @Composable
-fun HomeScreen(viewModel: HomeViewModel) {
+fun HomeScreen(viewModel: HomeViewModel, navController: NavController) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     Column(modifier = Modifier.fillMaxSize()) {
         AppBar("Users")
         HomeStateHandler(state = uiState) {
-            Home(users = it)
+            Home(users = it) {
+                navController.navigate("${MainScreen.Profile.route}?name=$it")
+            }
         }
     }
-
-
 }
 
 @Composable
-fun Home(users: List<User>) {
+fun Home(users: List<User>, clickedUserName: (String) -> Unit) {
     LazyColumn {
         items(users) { user ->
-            UserRow(user = user)
+            UserRow(user = user) {
+                clickedUserName(it)
+            }
         }
     }
 }
 
 @Composable
-fun UserRow(user: User) {
+fun UserRow(user: User, clickedUserName: (String) -> Unit) {
     Card(modifier = Modifier
         .fillMaxWidth()
         .wrapContentHeight()
         .padding(3.dp)
-        .clickable {
-
-
-        }) {
+        .clickable { clickedUserName(user.login) }) {
         Row(
             modifier = Modifier.fillMaxSize()
         ) {
 
             AsyncImage(
-                model = user.userAvatar,
+                model = user.avatar_url,
                 contentDescription = "avatar",
                 modifier = Modifier
                     .size(50.dp)
                     .padding(4.dp)
             )
             Column(modifier = Modifier.padding(4.dp)) {
-                Text(text = user.userName, color = Color.Black)
+                Text(text = user.login, color = Color.Black)
             }
         }
     }

@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.hiltAndroid)
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
     kotlin("kapt")
+    id(libs.plugins.kotlin.serialization.get().pluginId)
 }
 
 android {
@@ -15,7 +16,7 @@ android {
 }
 
 dependencies {
-
+    implementation(projects.network)
     implementation(projects.theme)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -34,8 +35,15 @@ dependencies {
     implementation(libs.hilt.compose)
     kapt(libs.hilt.compiler.kapt)
 
+
     implementation(libs.moshi.kotlin)
     implementation(libs.retrofit.moshi.converter)
+
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.android)
+    implementation(libs.ktor.serialization)
+    implementation(libs.ktor.client.logging)
+    implementation(libs.ktor.client.content.negotiation)
 
     implementation(libs.coil)
 
