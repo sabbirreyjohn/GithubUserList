@@ -1,12 +1,16 @@
 package xyz.androidrey.multimoduletemplate.main.domain.entity
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 
 @Serializable
+@Entity
 data class User(
-    val id: Int,
-    val login: String,
-    val node_id: String,
-    val avatar_url: String
+    @SerialName("id") @PrimaryKey val userId: Int,
+    @SerialName("login") val userLogin: String,
+    @SerialName("node_id") val nodeId: String,
+    @SerialName("avatar_url") val avatarUrl: String
 )

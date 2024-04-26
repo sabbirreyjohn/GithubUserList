@@ -1,4 +1,4 @@
-package xyz.androidrey.multimoduletemplate.main.ui.paging
+package xyz.androidrey.multimoduletemplate.main.data.remote
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
@@ -25,7 +25,7 @@ class ThePagingSource @Inject constructor(private val repository: DataRepository
             is NetworkResult.Error -> return LoadResult.Error(IllegalStateException(response.exception.message))
             is NetworkResult.Success -> {
                 val data = response.result
-                val nextKey = if (data.isEmpty()) null else data.last().id + 1
+                val nextKey = if (data.isEmpty()) null else data.last().userId + 1
                 return LoadResult.Page(
                     data = data,
                     prevKey = null,

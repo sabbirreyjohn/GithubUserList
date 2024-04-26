@@ -16,10 +16,12 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
@@ -32,16 +34,27 @@ import xyz.androidrey.multimoduletemplate.main.domain.entity.User
 import xyz.androidrey.multimoduletemplate.main.ui.MainScreen
 import xyz.androidrey.multimoduletemplate.theme.components.AppBar
 import xyz.androidrey.multimoduletemplate.theme.components.ThePreview
+import xyz.androidrey.multimoduletemplate.theme.utils.toast
 
 
 @Composable
 fun HomeScreen(viewModel: HomeViewModel, navController: NavController) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    val users = viewModel.lazyPagingItems.collectAsLazyPagingItems()
+    val usersPagingItem = viewModel.lazyPagingMediatorItem.collectAsLazyPagingItems()
+    val context = LocalContext.current
+    LaunchedEffect(key1 = usersPagingItem.loadState) {
+        if (usersPagingItem.loadState.refresh is LoadState.Error) {
+            context.toast("Error: " + (usersPagingItem.loadState.refresh as LoadState.Error).error.message) {
+
+            }
+        }
+    }
+
     Column(modifier = Modifier.fillMaxSize()) {
         AppBar("Users")
-        HomeStateHandler(state = uiState) {
-            Home(users = users) {
+        if (usersPagingItem.loadState.refresh is LoadState.Loading) {
+            LoadingItem()
+        } else {
+            Home(users = usersPagingItem) {
                 navController.navigate("${MainScreen.Profile.route}?name=$it")
             }
         }
@@ -50,27 +63,28 @@ fun HomeScreen(viewModel: HomeViewModel, navController: NavController) {
 
 @Composable
 fun Home(users: LazyPagingItems<User>, clickedUserName: (String) -> Unit) {
-   LazyColumn {
-       items(users.itemCount){index->
-           val user = users[index]
-           UserRow(user = user!!) {
-               clickedUserName(it)
-           }
+    LazyColumn {
+        items(users.itemCount) { index ->
+            val user = users[index]
+            user?.let {
+                UserRow(user = user!!) {
+                    clickedUserName(it)
+                }
+            }
+        }
 
-       }
+        if (users.loadState.append is LoadState.Loading) {
+            item { LoadingItem() } // Show loading at the end of the list
+        }
 
-       if (users.loadState.append is LoadState.Loading) {
-           item { LoadingItem() } // Show loading at the end of the list
-       }
-
-       if (users.loadState.append is LoadState.Error) {
-           item {
-               ErrorItem {
-                   users.retry() // Provide a way to retry failed loads
-               }
-           }
-       }
-   }
+        if (users.loadState.append is LoadState.Error) {
+            item {
+                ErrorItem {
+                    users.retry() // Provide a way to retry failed loads
+                }
+            }
+        }
+    }
 
 }
 
@@ -80,31 +94,32 @@ fun UserRow(user: User, clickedUserName: (String) -> Unit) {
         .fillMaxWidth()
         .wrapContentHeight()
         .padding(3.dp)
-        .clickable { clickedUserName(user.login) }) {
+        .clickable { clickedUserName(user.userLogin) }) {
         Row(
             modifier = Modifier.fillMaxSize()
         ) {
 
             AsyncImage(
-                model = user.avatar_url,
+                model = user.avatarUrl,
                 contentDescription = "avatar",
                 modifier = Modifier
                     .size(50.dp)
                     .padding(4.dp)
             )
             Column(modifier = Modifier.padding(4.dp)) {
-                Text(text = user.login, color = Color.Black)
+                Text(text = user.userLogin, color = Color.Black)
             }
         }
     }
 }
 
-
 @Composable
 fun LoadingItem() {
-    Box(modifier = Modifier
-        .fillMaxWidth() // Make sure the Box takes the full width
-        .padding(16.dp)) { // Optional padding
+    Box(
+        modifier = Modifier
+            .fillMaxWidth() // Make sure the Box takes the full width
+            .padding(16.dp)
+    ) { // Optional padding
         CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
     }
 }

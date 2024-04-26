@@ -5,6 +5,7 @@ plugins {
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
     kotlin("kapt")
     id(libs.plugins.kotlin.serialization.get().pluginId)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -46,6 +47,11 @@ dependencies {
     implementation(libs.ktor.serialization)
     implementation(libs.ktor.client.logging)
     implementation(libs.ktor.client.content.negotiation)
+
+    implementation(libs.room.runtime)
+    kapt(libs.room.compiler)
+    implementation(libs.room.ktx)
+    implementation(libs.room.paging)
 
     implementation(libs.coil)
 

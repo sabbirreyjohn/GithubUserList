@@ -24,7 +24,8 @@ gradle-secrets = "2.0.1"
 kotlinCompilerExtensionVersion = "1.5.1"
 kotlinSerialization = "1.9.0"
 lifecycle-viewmodel = "1.0.0-alpha03"
-paging= "3.2.1"
+paging = "3.2.1"
+ksp = "1.8.10-1.0.9"
 
 
 ktor = "2.3.5"
@@ -54,15 +55,15 @@ androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "lifecycleRuntimeKtx" }
 
-paging-runtime ={group = "androidx.paging", name ="paging-runtime", version.ref = "paging"}
-paging-compose = {group ="androidx.paging", name="paging-compose", version.ref ="paging"}
+paging-runtime = { group = "androidx.paging", name = "paging-runtime", version.ref = "paging" }
+paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "paging" }
 
 
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-android-kapt = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
 hilt-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hilt-androidx" }
 hilt-compiler-kapt = { group = "androidx.hilt", name = "hilt-compiler", version.ref = "hilt-androidx" }
-hilt-lifecycle-viewmodel = {group = "androidx.hilt", name ="hilt-lifecycle-viewmodel", version.ref = "lifecycle-viewmodel"}
+hilt-lifecycle-viewmodel = { group = "androidx.hilt", name = "hilt-lifecycle-viewmodel", version.ref = "lifecycle-viewmodel" }
 
 compose-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "compose-navigation" }
 compose-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "compose-viewmodel" }
@@ -72,6 +73,7 @@ coil = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
+room-paging = { group = "androidx.room", name = "room-paging", version.ref = "room" }
 
 moshi-kotlin = { group = "com.squareup.moshi", name = "moshi-kotlin", version.ref = "moshi-kotlin" }
 retrofit-moshi-converter = { group = "com.squareup.retrofit2", name = "converter-moshi", version.ref = "retrofit-moshi-converter" }
@@ -99,9 +101,10 @@ material = { group = "com.google.android.material", name = "material", version.r
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 hiltAndroid = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
-gradle-secrets = {id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref ="gradle-secrets"}
+gradle-secrets = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "gradle-secrets" }
 android-library = { id = "com.android.library", version.ref = "agp" }
-spotless = {id = "com.diffplug.spotless", version.ref ="spotless"}
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinSerialization" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 
