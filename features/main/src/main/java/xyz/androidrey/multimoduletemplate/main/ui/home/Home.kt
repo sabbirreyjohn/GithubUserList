@@ -17,20 +17,18 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.AsyncImage
 import com.example.compose.AppTheme
-import xyz.androidrey.multimoduletemplate.main.domain.entity.User
+import xyz.androidrey.multimoduletemplate.main.domain.entity.Product
 import xyz.androidrey.multimoduletemplate.main.ui.MainScreen
 import xyz.androidrey.multimoduletemplate.theme.components.AppBar
 import xyz.androidrey.multimoduletemplate.theme.components.ThePreview
@@ -39,22 +37,22 @@ import xyz.androidrey.multimoduletemplate.theme.utils.toast
 
 @Composable
 fun HomeScreen(viewModel: HomeViewModel, navController: NavController) {
-    val usersPagingItem = viewModel.lazyPagingMediatorItem.collectAsLazyPagingItems()
+    val productsPagingItem = viewModel.lazyPagingMediatorItem.collectAsLazyPagingItems()
     val context = LocalContext.current
-    LaunchedEffect(key1 = usersPagingItem.loadState) {
-        if (usersPagingItem.loadState.refresh is LoadState.Error) {
-            context.toast("Error: " + (usersPagingItem.loadState.refresh as LoadState.Error).error.message) {
+    LaunchedEffect(key1 = productsPagingItem.loadState) {
+        if (productsPagingItem.loadState.refresh is LoadState.Error) {
+            context.toast("Error: " + (productsPagingItem.loadState.refresh as LoadState.Error).error.message) {
 
             }
         }
     }
 
     Column(modifier = Modifier.fillMaxSize()) {
-        AppBar("Users")
-        if (usersPagingItem.loadState.refresh is LoadState.Loading) {
+        AppBar("Products")
+        if (productsPagingItem.loadState.refresh is LoadState.Loading) {
             LoadingItem()
         } else {
-            Home(users = usersPagingItem) {
+            Home(products = productsPagingItem) {
                 navController.navigate("${MainScreen.Profile.route}?name=$it")
             }
         }
@@ -62,25 +60,26 @@ fun HomeScreen(viewModel: HomeViewModel, navController: NavController) {
 }
 
 @Composable
-fun Home(users: LazyPagingItems<User>, clickedUserName: (String) -> Unit) {
+fun Home(products: LazyPagingItems<Product>, clickedUserName: (String) -> Unit) {
     LazyColumn {
-        items(users.itemCount) { index ->
-            val user = users[index]
-            user?.let {
-                UserRow(user = user!!) {
-                    clickedUserName(it)
+        items(products.itemCount) { index ->
+            val product = products[index]
+            product?.let {
+                UserRow(product = it) { name->
+                    clickedUserName(name)
                 }
             }
         }
 
-        if (users.loadState.append is LoadState.Loading) {
+
+        if (products.loadState.append is LoadState.Loading) {
             item { LoadingItem() } // Show loading at the end of the list
         }
 
-        if (users.loadState.append is LoadState.Error) {
+        if (products.loadState.append is LoadState.Error) {
             item {
                 ErrorItem {
-                    users.retry() // Provide a way to retry failed loads
+                    products.retry() // Provide a way to retry failed loads
                 }
             }
         }
@@ -89,25 +88,27 @@ fun Home(users: LazyPagingItems<User>, clickedUserName: (String) -> Unit) {
 }
 
 @Composable
-fun UserRow(user: User, clickedUserName: (String) -> Unit) {
+fun UserRow(product: Product, clickedUserName: (String) -> Unit) {
     Card(modifier = Modifier
         .fillMaxWidth()
         .wrapContentHeight()
         .padding(3.dp)
-        .clickable { clickedUserName(user.userLogin) }) {
+        .clickable {
+//            clickedUserName(product.userLogin)
+        }) {
         Row(
             modifier = Modifier.fillMaxSize()
         ) {
 
             AsyncImage(
-                model = user.avatarUrl,
+                model = product.thumbnail,
                 contentDescription = "avatar",
                 modifier = Modifier
                     .size(50.dp)
                     .padding(4.dp)
             )
             Column(modifier = Modifier.padding(4.dp)) {
-                Text(text = user.userLogin, color = Color.Black)
+                Text(text = product.title, color = Color.Black)
             }
         }
     }

@@ -6,7 +6,8 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import xyz.androidrey.multimoduletemplate.main.data.local.dao.TheDatabase
-import xyz.androidrey.multimoduletemplate.main.domain.entity.User
+import xyz.androidrey.multimoduletemplate.main.domain.entity.Product
+import xyz.androidrey.multimoduletemplate.main.domain.entity.ProductResponse
 import xyz.androidrey.multimoduletemplate.network.NetworkResult
 import xyz.androidrey.multimoduletemplate.network.http.RequestHandler
 import javax.inject.Inject
@@ -15,35 +16,46 @@ import javax.inject.Inject
 class UserRemoteMediator @Inject internal constructor(
     private val database: TheDatabase,
     private val requestHandler: RequestHandler
-) : RemoteMediator<Int, User>() {
-    override suspend fun load(loadType: LoadType, state: PagingState<Int, User>): MediatorResult {
+) : RemoteMediator<Int, Product>() {
+
+
+    override suspend fun initialize(): InitializeAction {
+        return InitializeAction.SKIP_INITIAL_REFRESH
+    }
+    override suspend fun load(
+        loadType: LoadType,
+        state: PagingState<Int, Product>
+    ): MediatorResult {
         return try {
             val loadKey = when (loadType) {
                 LoadType.REFRESH -> 0
                 LoadType.PREPEND -> return MediatorResult.Success(
                     endOfPaginationReached = true
                 )
+
                 LoadType.APPEND -> {
                     val lastItem = state.lastItemOrNull()
-                    lastItem?.userId ?: 0
+                    lastItem?.id ?: 0
                 }
             }
-            val users = requestHandler.get<List<User>>(
-                urlPathSegments = listOf("users"),
-                queryParams = mapOf("since" to loadKey, "per_page" to 10)
+            val products = requestHandler.get<ProductResponse>(
+                urlPathSegments = listOf("products"),
+                queryParams = mapOf("skip" to loadKey, "limit" to 20)
             )
-            when (users) {
+
+            when (products) {
                 is NetworkResult.Error -> {
-                    MediatorResult.Error(users.exception)
+                    MediatorResult.Error(products.exception)
                 }
+
                 is NetworkResult.Success -> {
                     database.withTransaction {
                         if (loadType == LoadType.REFRESH) {
-                            database.userDao.clearAll()
+                            database.productDao.clearAll()
                         }
-                        database.userDao.insertAll(users.result)
+                        database.productDao.insertAll(products.result.products)
                     }
-                    MediatorResult.Success(endOfPaginationReached = users.result.isEmpty())
+                    MediatorResult.Success(endOfPaginationReached = products.result.products.size < state.config.pageSize)
                 }
             }
         } catch (e: Exception) {

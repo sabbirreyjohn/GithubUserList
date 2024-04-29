@@ -16,7 +16,7 @@ import xyz.androidrey.multimoduletemplate.main.BuildConfig
 import xyz.androidrey.multimoduletemplate.main.data.local.dao.TheDatabase
 import xyz.androidrey.multimoduletemplate.main.data.remote.UserRemoteMediator
 import xyz.androidrey.multimoduletemplate.main.data.repository.DataRepository
-import xyz.androidrey.multimoduletemplate.main.domain.entity.User
+import xyz.androidrey.multimoduletemplate.main.domain.entity.Product
 import xyz.androidrey.multimoduletemplate.main.domain.repository.DataRepositoryImpl
 import xyz.androidrey.multimoduletemplate.network.http.HttpClientBuilder
 import xyz.androidrey.multimoduletemplate.network.http.RequestHandler
@@ -46,21 +46,25 @@ class NetworkModule {
         return Room.databaseBuilder(
             context.applicationContext,
             TheDatabase::class.java,
-            "users.db"
+            "products.db"
         ).build()
     }
 
     @OptIn(ExperimentalPagingApi::class)
     @Provides
     @Singleton
-    fun provideUserPager(database: TheDatabase, requestHandler: RequestHandler): Pager<Int, User> {
+    fun provideUserPager(database: TheDatabase, requestHandler: RequestHandler): Pager<Int, Product> {
         return Pager(
-            config = PagingConfig(10),
+            config = PagingConfig(
+                pageSize = 20,
+                prefetchDistance = 15,
+                initialLoadSize = 30,
+                enablePlaceholders = false
+            ),
             remoteMediator = UserRemoteMediator(database, requestHandler),
             pagingSourceFactory = {
-                database.userDao.getUsersPaging()
+                database.productDao.getProductPaging()
             }
-
         )
 
     }

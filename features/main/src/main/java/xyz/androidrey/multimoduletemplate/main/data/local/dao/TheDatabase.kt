@@ -2,10 +2,10 @@ package xyz.androidrey.multimoduletemplate.main.data.local.dao
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import xyz.androidrey.multimoduletemplate.main.domain.entity.User
+import xyz.androidrey.multimoduletemplate.main.domain.entity.Product
 
-@Database(entities = [User::class], version = 1)
+@Database(entities = [Product::class], version = 1)
 
 abstract class TheDatabase : RoomDatabase() {
-    abstract val userDao: UserDao
+    abstract val productDao: ProductDao
 }
