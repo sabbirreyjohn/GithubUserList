@@ -94,7 +94,7 @@ fun UserRow(product: Product, clickedUserName: (String) -> Unit) {
         .wrapContentHeight()
         .padding(3.dp)
         .clickable {
-//            clickedUserName(product.userLogin)
+           clickedUserName(product.title)
         }) {
         Row(
             modifier = Modifier.fillMaxSize()

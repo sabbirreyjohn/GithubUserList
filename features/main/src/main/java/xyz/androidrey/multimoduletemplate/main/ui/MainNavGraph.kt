@@ -10,6 +10,7 @@ import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import xyz.androidrey.multimoduletemplate.main.ui.home.HomeScreen
 import xyz.androidrey.multimoduletemplate.main.ui.profile.ProfileScreen
+import xyz.androidrey.multimoduletemplate.main.ui.profile.ProfileViewModel
 
 
 const val mainRoute = "main"
@@ -30,7 +31,10 @@ fun NavGraphBuilder.mainNavGraph(navController: NavController) {
                 defaultValue = "Sabbir"
             }
         )) {
-            ProfileScreen(it.arguments?.getString("name"), hiltViewModel())
+            val viewModel = hiltViewModel<ProfileViewModel, ProfileViewModel.Factory>(
+                creationCallback = { factory -> factory.create(it.arguments?.getString("name")!!) }
+            )
+            ProfileScreen(it.arguments?.getString("name"), viewModel)
         }
     }
 }
