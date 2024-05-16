@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.example.compose.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
+import xyz.androidrey.multimoduletemplate.main.ui.MainNavGraph
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -21,7 +22,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
-                    TheNavHost(navHostController = rememberNavController())
+                    MainNavGraph(navController = rememberNavController())
                 }
             }
         }

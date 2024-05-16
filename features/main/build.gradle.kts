@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.hiltAndroid)
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
     kotlin("kapt")
-    id(libs.plugins.kotlin.serialization.get().pluginId)
+    kotlin(libs.plugins.kotlinx.serialization.get().pluginId)
     alias(libs.plugins.ksp)
 }
 
@@ -23,13 +23,14 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.compose.navigation)
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.lifecycle.runtime.compose)
 
-
+    implementation(libs.kotlinx.serialization)
 
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.kapt)
@@ -54,7 +55,6 @@ dependencies {
     implementation(libs.room.paging)
 
     implementation(libs.coil)
-
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

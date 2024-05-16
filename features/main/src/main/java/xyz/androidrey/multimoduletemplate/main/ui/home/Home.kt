@@ -53,7 +53,7 @@ fun HomeScreen(viewModel: HomeViewModel, navController: NavController) {
             LoadingItem()
         } else {
             Home(products = productsPagingItem) {
-                navController.navigate("${MainScreen.Profile.route}?name=$it")
+                navController.navigate(MainScreen.Profile(name = it))
             }
         }
     }
@@ -65,7 +65,7 @@ fun Home(products: LazyPagingItems<Product>, clickedUserName: (String) -> Unit) 
         items(products.itemCount) { index ->
             val product = products[index]
             product?.let {
-                UserRow(product = it) { name->
+                UserRow(product = it) { name ->
                     clickedUserName(name)
                 }
             }
@@ -94,7 +94,7 @@ fun UserRow(product: Product, clickedUserName: (String) -> Unit) {
         .wrapContentHeight()
         .padding(3.dp)
         .clickable {
-           clickedUserName(product.title)
+            clickedUserName(product.title)
         }) {
         Row(
             modifier = Modifier.fillMaxSize()

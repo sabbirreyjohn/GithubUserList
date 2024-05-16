@@ -1,40 +1,37 @@
 package xyz.androidrey.multimoduletemplate.main.ui
 
+import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavType
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
-import androidx.navigation.navigation
+import androidx.navigation.toRoute
+import kotlinx.serialization.Serializable
 import xyz.androidrey.multimoduletemplate.main.ui.home.HomeScreen
 import xyz.androidrey.multimoduletemplate.main.ui.profile.ProfileScreen
 import xyz.androidrey.multimoduletemplate.main.ui.profile.ProfileViewModel
 
+@Serializable
+sealed class MainScreen() {
+    @Serializable
+    data object Home : MainScreen()
 
-const val mainRoute = "main"
-
-sealed class MainScreen(val route: String) {
-    data object Home : MainScreen("$mainRoute/home")
-    data object Profile : MainScreen("$mainRoute/profile")
+    @Serializable
+    data class Profile(val name: String) : MainScreen()
 }
 
-fun NavGraphBuilder.mainNavGraph(navController: NavController) {
-    navigation(startDestination = MainScreen.Home.route, route = mainRoute) {
-        composable(MainScreen.Home.route) {
+@Composable
+fun MainNavGraph(navController: NavHostController) {
+    NavHost(navController = navController, startDestination = MainScreen.Home) {
+        composable<MainScreen.Home> {
             HomeScreen(hiltViewModel(), navController)
         }
-        composable("${MainScreen.Profile.route}?name={name}", arguments = listOf(
-            navArgument("name") {
-                type = NavType.StringType
-                defaultValue = "Sabbir"
-            }
-        )) {
+        composable<MainScreen.Profile> {
+            val args = it.toRoute<MainScreen.Profile>()
             val viewModel = hiltViewModel<ProfileViewModel, ProfileViewModel.Factory>(
-                creationCallback = { factory -> factory.create(it.arguments?.getString("name")!!) }
+                creationCallback = { factory -> factory.create(args.name) }
             )
-            ProfileScreen(it.arguments?.getString("name"), viewModel)
+            ProfileScreen(args.name, viewModel)
         }
     }
 }

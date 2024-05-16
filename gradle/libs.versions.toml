@@ -1,5 +1,5 @@
 [versions]
-agp = "8.3.1"
+agp = "8.4.0"
 kotlin = "1.9.0"
 coreKtx = "1.12.0"
 junit = "4.13.2"
@@ -10,8 +10,8 @@ activityCompose = "1.8.2"
 composeBom = "2023.08.00"
 hilt = "2.50"
 hilt-androidx = "1.2.0"
-compose-navigation = "2.7.7"
-compose-viewmodel = "2.7.0"
+compose-navigation = "2.8.0-alpha08"
+compose-viewmodel = "2.8.0"
 coil = "2.5.0"
 room = "2.6.1"
 moshi-kotlin = "1.15.1"
@@ -35,6 +35,8 @@ ktorClientLogging = "2.3.5"
 appcompat = "1.6.1"
 material = "1.11.0"
 jetbrainsKotlinJvm = "1.9.0"
+kotlinx-serialization = "1.6.3"
+kotlinx-serialization-plugin = "1.9.23"
 
 
 
@@ -90,11 +92,11 @@ ktor-serialization = { group = "io.ktor", name = "ktor-serialization-kotlinx-jso
 ktor-auth = { group = "io.ktor", name = "ktor-client-auth", version.ref = "ktor" }
 ktor-client-mock = { group = "io.ktor", name = "ktor-client-mock", version.ref = "ktor" }
 
+kotlinx-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 spotless = { group = "com.diffplug.spotless", name = "spotless-plugin-gradle", version.ref = "spotless" }
 gradle-secrets = { group = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", name = "secrets-gradle-plugin", version.ref = "gradle-secrets" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
-
 
 
 [plugins]
@@ -107,4 +109,5 @@ spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinSerialization" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+kotlinx-serialization ={id= "plugin.serialization", version.ref = "kotlinx-serialization-plugin"}
 
