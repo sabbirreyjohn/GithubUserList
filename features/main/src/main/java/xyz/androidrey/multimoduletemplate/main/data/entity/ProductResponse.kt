@@ -1,9 +1,11 @@
-package xyz.androidrey.multimoduletemplate.main.domain.entity
+package xyz.androidrey.multimoduletemplate.main.data.entity
 
+import android.annotation.SuppressLint
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.serialization.Serializable
 
+@SuppressLint("UnsafeOptInUsageError")
 @Serializable
 data class ProductResponse(
     val products: List<Product>,
@@ -12,6 +14,7 @@ data class ProductResponse(
     val limit: Int
 )
 
+@SuppressLint("UnsafeOptInUsageError")
 @Entity
 @Serializable
 data class Product(
@@ -23,7 +26,7 @@ data class Product(
     val discountPercentage: Double,
     val rating: Double,
     val stock: Int,
-    val brand: String,
+    val brand: String="",
     val category: String,
     val thumbnail: String
 )

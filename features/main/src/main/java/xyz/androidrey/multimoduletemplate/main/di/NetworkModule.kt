@@ -1,4 +1,4 @@
-package xyz.androidrey.multimoduletemplate.main.domain.di
+package xyz.androidrey.multimoduletemplate.main.di
 
 import android.content.Context
 import androidx.paging.ExperimentalPagingApi
@@ -13,11 +13,11 @@ import dagger.hilt.components.SingletonComponent
 import io.ktor.client.HttpClient
 import io.ktor.http.URLProtocol
 import xyz.androidrey.multimoduletemplate.main.BuildConfig
-import xyz.androidrey.multimoduletemplate.main.data.local.dao.TheDatabase
-import xyz.androidrey.multimoduletemplate.main.data.remote.UserRemoteMediator
-import xyz.androidrey.multimoduletemplate.main.data.repository.DataRepository
-import xyz.androidrey.multimoduletemplate.main.domain.entity.Product
-import xyz.androidrey.multimoduletemplate.main.domain.repository.DataRepositoryImpl
+import xyz.androidrey.multimoduletemplate.main.data.source.local.TheDatabase
+import xyz.androidrey.multimoduletemplate.main.data.source.remote.UserRemoteMediator
+import xyz.androidrey.multimoduletemplate.main.domain.repository.DataRepository
+import xyz.androidrey.multimoduletemplate.main.data.entity.Product
+import xyz.androidrey.multimoduletemplate.main.data.repository.DataRepositoryImpl
 import xyz.androidrey.multimoduletemplate.network.http.HttpClientBuilder
 import xyz.androidrey.multimoduletemplate.network.http.RequestHandler
 import javax.inject.Singleton

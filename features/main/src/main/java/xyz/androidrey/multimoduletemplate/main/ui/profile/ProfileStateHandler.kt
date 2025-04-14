@@ -1,8 +1,7 @@
 package xyz.androidrey.multimoduletemplate.main.ui.profile
 
 import androidx.compose.runtime.Composable
-import xyz.androidrey.multimoduletemplate.main.domain.entity.Profile
-import xyz.androidrey.multimoduletemplate.main.domain.entity.User
+import xyz.androidrey.multimoduletemplate.main.data.entity.Profile
 import xyz.androidrey.multimoduletemplate.main.ui.composable.ShowError
 import xyz.androidrey.multimoduletemplate.main.ui.composable.ShowLoading
 

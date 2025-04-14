@@ -1,6 +1,6 @@
 package xyz.androidrey.multimoduletemplate.main.ui.home
 
-import xyz.androidrey.multimoduletemplate.main.domain.entity.User
+import xyz.androidrey.multimoduletemplate.main.data.entity.User
 
 sealed class HomeUiState {
     data class ProfileListLoaded(val users: List<User>) : HomeUiState()

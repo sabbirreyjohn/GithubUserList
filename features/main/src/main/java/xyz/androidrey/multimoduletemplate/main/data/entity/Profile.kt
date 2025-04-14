@@ -1,8 +1,10 @@
-package xyz.androidrey.multimoduletemplate.main.domain.entity
+package xyz.androidrey.multimoduletemplate.main.data.entity
 
+import android.annotation.SuppressLint
 import kotlinx.serialization.Serializable
 
 
+@SuppressLint("UnsafeOptInUsageError")
 @Serializable
 data class Profile(
     val avatar_url: String? = null,

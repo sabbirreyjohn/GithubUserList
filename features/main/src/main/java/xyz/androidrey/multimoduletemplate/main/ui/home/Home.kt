@@ -28,7 +28,7 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.AsyncImage
 import com.example.compose.AppTheme
-import xyz.androidrey.multimoduletemplate.main.domain.entity.Product
+import xyz.androidrey.multimoduletemplate.main.data.entity.Product
 import xyz.androidrey.multimoduletemplate.main.ui.MainScreen
 import xyz.androidrey.multimoduletemplate.theme.components.AppBar
 import xyz.androidrey.multimoduletemplate.theme.components.ThePreview

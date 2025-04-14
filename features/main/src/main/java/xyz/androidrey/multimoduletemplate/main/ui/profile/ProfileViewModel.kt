@@ -10,9 +10,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import xyz.androidrey.multimoduletemplate.main.data.repository.DataRepository
+import xyz.androidrey.multimoduletemplate.main.domain.repository.DataRepository
 import xyz.androidrey.multimoduletemplate.network.NetworkResult
-import javax.inject.Inject
 
 @HiltViewModel(assistedFactory = ProfileViewModel.Factory::class)
 class ProfileViewModel @AssistedInject constructor(

@@ -1,9 +1,9 @@
-package xyz.androidrey.multimoduletemplate.main.data.remote
+package xyz.androidrey.multimoduletemplate.main.data.source.remote
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import xyz.androidrey.multimoduletemplate.main.data.repository.DataRepository
-import xyz.androidrey.multimoduletemplate.main.domain.entity.User
+import xyz.androidrey.multimoduletemplate.main.domain.repository.DataRepository
+import xyz.androidrey.multimoduletemplate.main.data.entity.User
 import xyz.androidrey.multimoduletemplate.network.NetworkResult
 import javax.inject.Inject
 

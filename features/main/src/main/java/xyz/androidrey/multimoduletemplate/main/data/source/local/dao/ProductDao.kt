@@ -1,11 +1,11 @@
-package xyz.androidrey.multimoduletemplate.main.data.local.dao
+package xyz.androidrey.multimoduletemplate.main.data.source.local.dao
 
 import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import xyz.androidrey.multimoduletemplate.main.domain.entity.Product
+import xyz.androidrey.multimoduletemplate.main.data.entity.Product
 
 @Dao
 interface ProductDao {

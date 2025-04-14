@@ -7,8 +7,8 @@ import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import xyz.androidrey.multimoduletemplate.main.data.repository.DataRepository
-import xyz.androidrey.multimoduletemplate.main.domain.entity.Product
+import xyz.androidrey.multimoduletemplate.main.domain.repository.DataRepository
+import xyz.androidrey.multimoduletemplate.main.data.entity.Product
 import javax.inject.Inject
 
 @HiltViewModel

@@ -1,13 +1,13 @@
-package xyz.androidrey.multimoduletemplate.main.data.remote
+package xyz.androidrey.multimoduletemplate.main.data.source.remote
 
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
-import xyz.androidrey.multimoduletemplate.main.data.local.dao.TheDatabase
-import xyz.androidrey.multimoduletemplate.main.domain.entity.Product
-import xyz.androidrey.multimoduletemplate.main.domain.entity.ProductResponse
+import xyz.androidrey.multimoduletemplate.main.data.source.local.TheDatabase
+import xyz.androidrey.multimoduletemplate.main.data.entity.Product
+import xyz.androidrey.multimoduletemplate.main.data.entity.ProductResponse
 import xyz.androidrey.multimoduletemplate.network.NetworkResult
 import xyz.androidrey.multimoduletemplate.network.http.RequestHandler
 import javax.inject.Inject
