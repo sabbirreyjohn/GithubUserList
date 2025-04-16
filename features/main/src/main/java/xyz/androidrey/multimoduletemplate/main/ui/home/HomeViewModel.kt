@@ -2,40 +2,49 @@ package xyz.androidrey.multimoduletemplate.main.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.flatMapLatest
 import xyz.androidrey.multimoduletemplate.main.domain.repository.DataRepository
 import xyz.androidrey.multimoduletemplate.main.data.entity.Product
+import xyz.androidrey.multimoduletemplate.main.data.source.local.TheDatabase
+import xyz.androidrey.multimoduletemplate.main.data.source.remote.UserRemoteMediator
 import javax.inject.Inject
 
 @HiltViewModel
+@OptIn(ExperimentalPagingApi::class)
 class HomeViewModel @Inject constructor(
-    pager: Pager<Int, Product>,
-    private val repo: DataRepository
+    private val repo: DataRepository,
+    private val remoteMediator: UserRemoteMediator,
+    private val database: TheDatabase
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow<HomeUiState>(HomeUiState.ProfileListLoading)
-    val uiState = _uiState.asStateFlow()
 
-//    val lazyPagingItems: Flow<PagingData<User>> = Pager(
-//        config = PagingConfig(pageSize = 10),
-//        pagingSourceFactory = { ThePagingSource(repo) }
-//    ).flow.cachedIn(viewModelScope)
+    private val _sortOption = MutableStateFlow(SortOption.TITLE)
+    val sortOption: StateFlow<SortOption> = _sortOption.asStateFlow()
 
+    fun updateSort(option: SortOption) {
+        _sortOption.value = option
+    }
 
-    val lazyPagingMediatorItem = pager.flow.cachedIn(viewModelScope)
+    @OptIn(ExperimentalCoroutinesApi::class)
+    fun getSortedPagingFlow(): Flow<PagingData<Product>> {
+        return sortOption.flatMapLatest { sort ->
+            remoteMediator.currentSortOption = sort
+            Pager(
+                config = PagingConfig(pageSize = 20),
+                remoteMediator = remoteMediator,
+                pagingSourceFactory = { database.productDao.getProductPaging() }
+            ).flow
+        }.cachedIn(viewModelScope)
+    }
 
-//    init {
-//        viewModelScope.launch {
-//            when (val status = repo.getUsers(0)) {
-//                is NetworkResult.Error -> _uiState.value =
-//                    HomeUiState.ProfileListLoadingFailed(status.exception.message!!)
-//
-//                is NetworkResult.Success -> _uiState.value =
-//                    HomeUiState.ProfileListLoaded(status.result)
-//            }
-//        }
-//    }
 }

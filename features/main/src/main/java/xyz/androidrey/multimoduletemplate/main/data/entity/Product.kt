@@ -6,15 +6,6 @@ import androidx.room.PrimaryKey
 import kotlinx.serialization.Serializable
 
 @SuppressLint("UnsafeOptInUsageError")
-@Serializable
-data class ProductResponse(
-    val products: List<Product>,
-    val total: Int,
-    val skip: Int,
-    val limit: Int
-)
-
-@SuppressLint("UnsafeOptInUsageError")
 @Entity
 @Serializable
 data class Product(
@@ -30,4 +21,3 @@ data class Product(
     val category: String,
     val thumbnail: String
 )
-
